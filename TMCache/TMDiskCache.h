@@ -45,6 +45,8 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  */
 @property (readonly) NSURL *cacheURL;
 
+@property (readonly) NSSet *cacheKeys;
+
 /**
  The total number of bytes used on disk, as reported by `NSURLTotalFileAllocatedSizeKey`.
  

@@ -864,6 +864,15 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
     });
 }
 
+- (NSSet *)cacheKeys
+{
+    __block NSSet *keys = [NSSet set];
+    dispatch_sync(_queue, ^{
+        keys = [NSSet setWithArray:[_dates allKeys]];
+    });
+    return keys;
+}
+
 - (NSUInteger)byteLimit
 {
     __block NSUInteger byteLimit = 0;
