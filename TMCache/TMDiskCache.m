@@ -40,6 +40,11 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
 
 - (instancetype)initWithName:(NSString *)name
 {
+    return [self initWithName:name directory:nil];
+}
+
+- (instancetype)initWithName:(NSString *)name directory:(NSString *)path
+{
     if (!name)
         return nil;
 
@@ -61,9 +66,13 @@ NSString * const TMDiskCacheSharedName = @"TMDiskCacheShared";
         _dates = [[NSMutableDictionary alloc] init];
         _sizes = [[NSMutableDictionary alloc] init];
 
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *pathComponent = [[NSString alloc] initWithFormat:@"%@.%@", TMDiskCachePrefix, _name];
-        _cacheURL = [NSURL fileURLWithPathComponents:@[ [paths objectAtIndex:0], pathComponent ]];
+        if (path) {
+            _cacheURL = [NSURL fileURLWithPath:path];
+        } else {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+            NSString *pathComponent = [[NSString alloc] initWithFormat:@"%@.%@", TMDiskCachePrefix, _name];
+            _cacheURL = [NSURL fileURLWithPathComponents:@[ [paths objectAtIndex:0], pathComponent ]];
+        }
 
         __weak TMDiskCache *weakSelf = self;
 

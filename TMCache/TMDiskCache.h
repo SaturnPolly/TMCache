@@ -144,6 +144,8 @@ typedef void (^TMDiskCacheObjectBlock)(TMDiskCache *cache, NSString *key, id <NS
  */
 - (instancetype)initWithName:(NSString *)name;
 
+- (instancetype)initWithName:(NSString *)name directory:(NSString *)path;
+
 #pragma mark -
 /// @name Asynchronous Methods
 
